@@ -4,10 +4,14 @@
 
 ## Loading and preprocessing the data
 
-```{r preprocessing}
+### initializing environment
+```{r init-env}
 setwd("~/Study/coursera-projects/RepData_PeerAssessment1")
 Sys.setlocale("LC_TIME", "C")
+```
 
+### preprocessing dataset
+```{r preprocessing-dataset}
 # loading csv file
 activityData <- read.table("./data/activity.csv", sep=",", header=T, na.strings="NA",stringsAsFactors=F)
 
@@ -86,10 +90,11 @@ naFac
 
 ```{r}
 activity.merged <- merge(activityData,meanByInterval,by="interval")
+
+# If the steps variable has a 'NA' value it takes the mean value of the interval, or value of itself
 activity.merged$steps.fixed <- ifelse(is.na(activity.merged$steps),activity.merged$mean.steps,activity.merged$steps)
 summary(activity.merged)
 ```
-> *If the steps variable has a 'NA' value it takes the mean value of the interval, or value of itself*
 
 ### 3. Create a new dataset that is equal to the original dataset but with the missing data filled in.
 ```{r}
@@ -110,7 +115,7 @@ fixed.median = median(sumByDate.fixed$total.steps)
 fixed.mean
 fixed.median
 ```
-> *The fixed mean and median value is **`r fixed.mean`** , **`r fixed.median`**. These two value is same as each other. It's likely that there is no impact of imputing missing data by change to mean of interval on the estimates of the total daily number of steps.*
+> *The fixed mean and median value is __`r fixed.mean`__ , __`r fixed.median`__. These two value is same as each other. It's likely that there is no impact of imputing missing data by change to mean of interval on the estimates of the total daily number of steps.*
 
 ------------------------------------------------------------
 

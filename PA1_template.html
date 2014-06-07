@@ -185,12 +185,16 @@ hljs.initHighlightingOnLoad();
 
 <h2>Loading and preprocessing the data</h2>
 
+<h3>initializing environment</h3>
+
 <pre><code class="r">setwd(&quot;~/Study/coursera-projects/RepData_PeerAssessment1&quot;)
 Sys.setlocale(&quot;LC_TIME&quot;, &quot;C&quot;)
 </code></pre>
 
 <pre><code>## [1] &quot;C&quot;
 </code></pre>
+
+<h3>preprocessing dataset</h3>
 
 <pre><code class="r"># loading csv file
 activityData &lt;- read.table(&quot;./data/activity.csv&quot;, sep=&quot;,&quot;, header=T, na.strings=&quot;NA&quot;,stringsAsFactors=F)
@@ -307,6 +311,8 @@ naFac
 </blockquote>
 
 <pre><code class="r">activity.merged &lt;- merge(activityData,meanByInterval,by=&quot;interval&quot;)
+
+# If the steps variable has a &#39;NA&#39; value it takes the mean value of the interval, or value of itself
 activity.merged$steps.fixed &lt;- ifelse(is.na(activity.merged$steps),activity.merged$mean.steps,activity.merged$steps)
 summary(activity.merged)
 </code></pre>
@@ -328,10 +334,6 @@ summary(activity.merged)
 ##  Max.   :806.0  
 ## 
 </code></pre>
-
-<blockquote>
-<p><em>If the steps variable has a &#39;NA&#39; value it takes the mean value of the interval, or value of itself</em></p>
-</blockquote>
 
 <h3>3. Create a new dataset that is equal to the original dataset but with the missing data filled in.</h3>
 
@@ -373,7 +375,7 @@ fixed.mean
 </code></pre>
 
 <blockquote>
-<p><em>The fixed mean and median value is **1.0766 &times; 10<sup>4</sup></em>* , <strong>1.0766 &times; 10<sup>4</sup></strong>. These two value is same as each other. It&#39;s likely that there is no impact of imputing missing data by change to mean of interval on the estimates of the total daily number of steps.*</p>
+<p><em>The fixed mean and median value is <strong>1.0766 &times; 10<sup>4</sup></strong> , <strong>1.0766 &times; 10<sup>4</sup></strong>. These two value is same as each other. It&#39;s likely that there is no impact of imputing missing data by change to mean of interval on the estimates of the total daily number of steps.</em></p>
 </blockquote>
 
 <hr/>
